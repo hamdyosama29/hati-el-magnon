@@ -56,12 +56,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadLiveHttpData() {
   if (window.location.protocol.startsWith('http')) {
     try {
+      const ts = Date.now();
       const [bizRes, catRes, prodRes, offRes, revRes] = await Promise.all([
-        fetch('data/business.json').then(r => r.json()),
-        fetch('data/categories.json').then(r => r.json()),
-        fetch('data/products.json').then(r => r.json()),
-        fetch('data/offers.json').then(r => r.json()),
-        fetch('data/reviews.json').then(r => r.json())
+        fetch(`data/business.json?v=${ts}`).then(r => r.json()),
+        fetch(`data/categories.json?v=${ts}`).then(r => r.json()),
+        fetch(`data/products.json?v=${ts}`).then(r => r.json()),
+        fetch(`data/offers.json?v=${ts}`).then(r => r.json()),
+        fetch(`data/reviews.json?v=${ts}`).then(r => r.json())
       ]);
 
       siteData.business = bizRes;
@@ -84,26 +85,80 @@ function getSanitizedWhatsApp(raw) {
   return clean || '201093078227';
 }
 
-// Render Business Information & Badges
+// Render Business Information & Badges dynamically
 function renderHeroAndBusinessInfo() {
   if (!siteData.business) return;
   const b = siteData.business;
 
   // Title & Slogan
   const bizTitle = document.getElementById('biz-title');
-  if (bizTitle) bizTitle.textContent = b.name;
+  if (bizTitle && b.name) bizTitle.textContent = b.name;
 
   const bizSlogan = document.getElementById('biz-slogan');
-  if (bizSlogan) bizSlogan.textContent = b.slogan;
+  if (bizSlogan && b.slogan) bizSlogan.textContent = b.slogan;
 
-  // Working Hours & Address
+  // 1. Top Announcement Bar
+  const announcementBar = document.getElementById('top-announcement-bar');
+  const announcementText = document.getElementById('top-announcement-text');
+  if (announcementBar && announcementText) {
+    if (b.announcement && b.announcement.trim()) {
+      announcementText.textContent = b.announcement;
+      announcementBar.style.display = 'block';
+    } else if (b.announcement === '') {
+      announcementBar.style.display = 'none';
+    }
+  }
+
+  // 2. Header Hours & Address
+  const headerHours = document.getElementById('header-status-hours');
+  if (headerHours && b.workingHours) headerHours.textContent = `(${b.workingHours})`;
+
+  const headerAddress = document.getElementById('header-address');
+  if (headerAddress && b.address) headerAddress.textContent = b.address;
+
+  // 3. Hero Section Title, Description, and Badges
+  const heroBadge = document.getElementById('hero-badge-location');
+  if (heroBadge && (b.branch || b.address)) {
+    heroBadge.textContent = b.branch ? `${b.branch} • ${b.locationLandmark || b.address}` : b.address;
+  }
+
+  const heroTitle = document.getElementById('hero-main-title');
+  if (heroTitle && b.heroTitle) {
+    if (b.heroTitle.includes('..')) {
+      const parts = b.heroTitle.split('..');
+      heroTitle.innerHTML = `${parts[0]}.. <br><span class="text-transparent bg-clip-text bg-gradient-to-l from-amber-400 via-amber-200 to-red-400">${parts.slice(1).join('..')}</span>`;
+    } else {
+      heroTitle.textContent = b.heroTitle;
+    }
+  }
+
+  const heroDesc = document.getElementById('hero-description');
+  if (heroDesc && b.description) heroDesc.textContent = b.description;
+
+  const heroCardAddress = document.getElementById('hero-card-address');
+  if (heroCardAddress && b.address) heroCardAddress.textContent = b.address;
+
+  const heroRatingBadge = document.getElementById('hero-rating-badge');
+  if (heroRatingBadge && b.googleRating) {
+    heroRatingBadge.textContent = `${b.googleRating} ★ (${b.googleReviewCount || 41} تقييم)`;
+  }
+
+  // 4. Working Hours & Address (Location Section)
   const hoursEl = document.getElementById('biz-hours');
-  if (hoursEl) hoursEl.textContent = b.workingHours;
+  if (hoursEl && b.workingHours) hoursEl.textContent = b.workingHours;
 
   const addressEl = document.getElementById('biz-address');
-  if (addressEl) addressEl.textContent = b.address;
+  if (addressEl && b.address) addressEl.textContent = b.address;
 
-  // Primary Phone updates everywhere dynamically
+  // 5. Google Maps Links
+  if (b.googleMapsUrl) {
+    const locMap = document.getElementById('location-maps-link');
+    if (locMap) locMap.href = b.googleMapsUrl;
+    const footMap = document.getElementById('footer-maps-link');
+    if (footMap) footMap.href = b.googleMapsUrl;
+  }
+
+  // 6. Primary Phone (Updates everywhere dynamically)
   if (b.phonePrimary) {
     const p = b.phonePrimary;
     const headerBtn = document.getElementById('header-phone-btn');
@@ -127,7 +182,7 @@ function renderHeroAndBusinessInfo() {
     if (mobileCall) mobileCall.href = `tel:${p}`;
   }
 
-  // Secondary Phone
+  // 7. Secondary Phone
   if (b.phoneSecondary) {
     const p2 = b.phoneSecondary;
     const footerPhone2 = document.getElementById('footer-phone-secondary');
@@ -136,7 +191,7 @@ function renderHeroAndBusinessInfo() {
     if (footerPhone2Text) footerPhone2Text.textContent = p2;
   }
 
-  // Third Phone
+  // 8. Third Phone
   if (b.phoneThird) {
     const p3 = b.phoneThird;
     const footerPhone3 = document.getElementById('footer-phone-third');
@@ -145,7 +200,7 @@ function renderHeroAndBusinessInfo() {
     if (footerPhone3Text) footerPhone3Text.textContent = p3;
   }
 
-  // WhatsApp links update dynamically
+  // 9. WhatsApp links update dynamically
   if (b.whatsapp) {
     const cleanWa = getSanitizedWhatsApp(b.whatsapp);
     const heroWa = document.getElementById('hero-whatsapp-btn');
@@ -155,14 +210,26 @@ function renderHeroAndBusinessInfo() {
     if (footerWa) footerWa.href = `https://wa.me/${cleanWa}`;
   }
 
-  // Delivery Areas
+  // 10. Delivery Areas
   const deliveryList = document.getElementById('delivery-zones-list');
-  if (deliveryList && b.deliveryService && b.deliveryService.coverageAreas) {
+  if (deliveryList) {
+    let rawZones = b.deliveryAreas || (b.deliveryService && b.deliveryService.coverageAreas);
     let zones = [];
-    if (Array.isArray(b.deliveryService.coverageAreas)) {
-      zones = b.deliveryService.coverageAreas;
-    } else if (typeof b.deliveryService.coverageAreas === 'string') {
-      zones = b.deliveryService.coverageAreas.split(',').map(s => s.trim()).filter(Boolean);
+    if (Array.isArray(rawZones)) {
+      zones = rawZones;
+    } else if (typeof rawZones === 'string') {
+      zones = rawZones.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    if (zones.length === 0) {
+      zones = [
+        "حي الحرية (عمارة 159 والمناطق المحيطة)",
+        "حي المجد",
+        "حي الكرامة",
+        "سكن مصر العبور الجديدة",
+        "مشروع الإسكان الاجتماعي",
+        "الحي الـ 13 والـ 14 والـ 16",
+        "طريق مصر الإسماعيلية الصحراوي"
+      ];
     }
     deliveryList.innerHTML = zones.map(zone => 
       `<span class="inline-flex items-center bg-stone-900 border border-stone-800 px-3 py-1.5 rounded-full text-xs text-amber-300 font-semibold ml-2 mb-2">
@@ -170,6 +237,13 @@ function renderHeroAndBusinessInfo() {
       </span>`
     ).join('');
   }
+
+  // 11. Footer Notes & Description
+  const footerDesc = document.getElementById('footer-description');
+  if (footerDesc && b.description) footerDesc.textContent = b.description;
+
+  const footerNote = document.getElementById('footer-delivery-note');
+  if (footerNote && b.deliveryNote) footerNote.textContent = b.deliveryNote;
 
   if (window.lucide) lucide.createIcons();
 }
@@ -382,7 +456,8 @@ function updateFeastCalculator() {
   const gramsPerType = Math.round(totalMeatGrams / meatCount);
 
   // Price calculation
-  const estimatedCost = Math.round((totalMeatGrams / 1000) * 480 + (g * 25));
+  const pricePerKilo = siteData.business?.feastPricePerKilo || 480;
+  const estimatedCost = Math.round((totalMeatGrams / 1000) * pricePerKilo + (g * 25));
   const costPerPerson = Math.round(estimatedCost / g);
 
   // Free Sides Calculation

@@ -7,7 +7,7 @@ media:
 
 content:
   - name: business
-    label: "بيانات المطعم والاتصال والتوصيل"
+    label: "بيانات المطعم والإعلانات والاتصال"
     type: file
     path: data/business.json
     format: json
@@ -16,22 +16,28 @@ content:
         label: "اسم المطعم"
         type: string
       - name: branch
-        label: "الفرع"
+        label: "اسم الفرع أو المنطقة"
+        type: string
+      - name: announcement
+        label: "الشريط الإعلاني أعلى الموقع (اتركه فارغاً لإخفائه)"
+        type: string
+      - name: heroTitle
+        label: "عنوان الواجهة الرئيسي (الهيرو)"
         type: string
       - name: slogan
         label: "الشعار التسويقي"
         type: string
       - name: description
-        label: "وصف المطعم"
+        label: "وصف المطعم والفقرة الترحيبية"
         type: text
       - name: address
         label: "العنوان بالكامل"
         type: string
       - name: locationLandmark
-        label: "أقرب علامة مميزة"
+        label: "أقرب علامة مميزة للمحل"
         type: string
       - name: phonePrimary
-        label: "رقم الموبايل الأساسي"
+        label: "رقم الموبايل الأساسي (للاتصال والفوتر)"
         type: string
       - name: phoneSecondary
         label: "رقم إضافي 1"
@@ -45,17 +51,43 @@ content:
       - name: workingHours
         label: "مواعيد العمل اليومية"
         type: string
+      - name: deliveryAreas
+        label: "أحياء ومناطق التوصيل (مفصولة بفواصل)"
+        type: text
+      - name: deliveryNote
+        label: "ملاحظة خدمة التوصيل بالفوتر"
+        type: string
+      - name: feastPricePerKilo
+        label: "سعر كيلو المشاوي في حاسبة العزومات (ج.م)"
+        type: number
       - name: googleMapsUrl
-        label: "رابط خرائط جوجل"
+        label: "رابط خرائط جوجل (Google Maps)"
         type: string
       - name: googleRating
-        label: "التقييم الحالي في جوجل"
+        label: "التقييم الحالي في جوجل (من 5)"
         type: number
       - name: googleReviewCount
-        label: "إجمالي عدد التقييمات"
+        label: "إجمالي عدد تقييمات جوجل"
         type: number
       - name: priceRange
         label: "متوسط السعر للشخص"
+        type: string
+
+  - name: categories
+    label: "أقسام وتصنيفات المنيو"
+    type: file
+    path: data/categories.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: "معرف القسم بالإنجليزية (مثل: grills_kilo, family_feasts)"
+        type: string
+      - name: name
+        label: "اسم القسم بالعربية"
+        type: string
+      - name: description
+        label: "وصف مختصر للقسم"
         type: string
 
   - name: products
@@ -66,7 +98,7 @@ content:
     list: true
     fields:
       - name: id
-        label: "كود الصنف"
+        label: "كود الصنف (مثل: prod-014)"
         type: string
       - name: name
         label: "اسم الطبق أو الوجبة"
@@ -85,10 +117,10 @@ content:
         label: "السعر الأصلي (ج.م)"
         type: number
       - name: discountPrice
-        label: "سعر الخصم / العرض"
+        label: "سعر الخصم / العرض (اختياري)"
         type: number
       - name: unit
-        label: "الوحدة أو الحجم"
+        label: "الوحدة أو الحجم (مثل: 1 كجم / صينية / وجبة)"
         type: string
       - name: weightInfo
         label: "تفاصيل الوزن الدقيق"
@@ -97,7 +129,7 @@ content:
         label: "وصف الصنف"
         type: text
       - name: image
-        label: "مسار الصورة"
+        label: "مسار الصورة (مثل: images/chicken_rice.jpg)"
         type: string
       - name: badge
         label: "شارة تسويقية (مثل: الأكثر مبيعاً 🔥)"
@@ -128,10 +160,10 @@ content:
         label: "شارة العرض"
         type: string
       - name: originalPrice
-        label: "السعر قبل الخصم"
+        label: "السعر قبل الخصم (ج.م)"
         type: number
       - name: salePrice
-        label: "السعر المخفض"
+        label: "السعر المخفض (ج.م)"
         type: number
       - name: description
         label: "تفاصيل العرض"
@@ -140,7 +172,7 @@ content:
         label: "فترة العرض"
         type: string
       - name: image
-        label: "صورة العرض"
+        label: "مسار الصورة"
         type: string
       - name: highlight
         label: "أبرز ميزة"
@@ -166,7 +198,7 @@ content:
         label: "تاريخ المراجعة"
         type: string
       - name: orderType
-        label: "نوع الطلب"
+        label: "نوع الطلب (توصيل / سفري / صالة)"
         type: string
       - name: comment
         label: "تعليق العميل"

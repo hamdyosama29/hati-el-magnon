@@ -70,10 +70,10 @@
   <!-- ========================================== -->
   <!-- TOP ANNOUNCEMENT BAR                       -->
   <!-- ========================================== -->
-  <div class="bg-gradient-to-r from-red-950 via-amber-950 to-red-950 border-b border-amber-500/20 text-amber-200 text-[11px] sm:text-xs py-2 px-3 text-center font-bold">
+  <div id="top-announcement-bar" class="bg-gradient-to-r from-red-950 via-amber-950 to-red-950 border-b border-amber-500/20 text-amber-200 text-[11px] sm:text-xs py-2 px-3 text-center font-bold">
     <div class="container mx-auto flex items-center justify-center gap-1.5 sm:gap-2">
       <span class="inline-block animate-pulse">🔥</span>
-      <span>خصم 10% على صواني العزومات العائلية + طحينة وسلطة وعيش بلدي سخن مجاناً مع كل أوردر!</span>
+      <span id="top-announcement-text">خصم 10% على صواني العزومات العائلية + طحينة وسلطة وعيش بلدي سخن مجاناً مع كل أوردر!</span>
     </div>
   </div>
 
@@ -93,11 +93,11 @@
         <div class="flex items-center gap-2 bg-stone-900 border border-stone-800 px-3 py-1.5 rounded-full">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span class="text-emerald-400 font-extrabold">مفتوح الآن للطلبات</span>
-          <span class="text-stone-400 font-medium">(حتى 2:00 بعد منتصف الليل)</span>
+          <span id="header-status-hours" class="text-stone-400 font-medium">(حتى 2:00 بعد منتصف الليل)</span>
         </div>
         <div class="flex items-center gap-1.5 text-stone-300">
           <i data-lucide="map-pin" class="w-4 h-4 text-amber-400"></i>
-          <span class="font-medium">عمارة 159 حي الحرية، العبور الجديدة</span>
+          <span id="header-address" class="font-medium">عمارة 159 حي الحرية، العبور الجديدة</span>
         </div>
       </div>
 
@@ -134,17 +134,17 @@
         <div class="lg:col-span-7 text-right">
           <div class="inline-flex items-center gap-2 bg-stone-900 border border-amber-500/30 px-3.5 py-1 rounded-full text-xs text-amber-400 font-bold mb-3 shadow-inner">
             <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span>العبور الجديدة • حي الحرية • عمارة 159</span>
+            <span id="hero-badge-location">العبور الجديدة • حي الحرية • عمارة 159</span>
           </div>
 
-          <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-3">
+          <h1 id="hero-main-title" class="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-3">
             طعم الفحم الأصيل.. <br>
             <span class="text-transparent bg-clip-text bg-gradient-to-l from-amber-400 via-amber-200 to-red-400">
               وأمانة الميزان بالجرام
             </span>
           </h1>
 
-          <p class="text-xs sm:text-base text-stone-300 font-normal leading-relaxed mb-6 max-w-xl">
+          <p id="hero-description" class="text-xs sm:text-base text-stone-300 font-normal leading-relaxed mb-6 max-w-xl">
             مشويات كباب وكفتة بلدي وريش ضاني وفراخ مشوية على الفحم الخشبي النقي. تتبيلة خاصة موزونة بدون إفراط في الملوحة، ووزن صافي معتمد قبل وبعد الشوي مع أسرع دليفري ساخن يوصلك لحد باب بيتك في العبور الجديدة.
           </p>
 
@@ -194,9 +194,9 @@
               <div class="absolute bottom-3 inset-x-3 p-3 bg-stone-950/90 backdrop-blur-md rounded-xl border border-stone-800 flex items-center justify-between">
                 <div>
                   <span class="text-[10px] text-amber-400 font-extrabold block">المحل على الطبيعة • العبور الجديدة</span>
-                  <h3 class="text-xs sm:text-sm font-black text-white">عمارة 159 حي الحرية</h3>
+                  <h3 id="hero-card-address" class="text-xs sm:text-sm font-black text-white">عمارة 159 حي الحرية</h3>
                 </div>
-                <span class="badge-gold text-[11px] px-2.5 py-1 rounded-full font-black">3.8 ★ (41 تقييم)</span>
+                <span id="hero-rating-badge" class="badge-gold text-[11px] px-2.5 py-1 rounded-full font-black">3.8 ★ (41 تقييم)</span>
               </div>
             </div>
           </div>
@@ -534,7 +534,7 @@
             </p>
 
             <div class="flex flex-wrap items-center gap-2.5">
-              <a href="https://maps.google.com/?q=حاتي+المجنون+العبور+الجديدة" target="_blank" class="btn-primary text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-1.5">
+              <a href="https://maps.google.com/?q=حاتي+المجنون+العبور+الجديدة" id="location-maps-link" target="_blank" class="btn-primary text-xs px-4 py-2.5 rounded-xl font-bold flex items-center gap-1.5">
                 <i data-lucide="navigation" class="w-4 h-4"></i>
                 <span>افتح الموقع في Google Maps</span>
               </a>
@@ -596,7 +596,7 @@
         
         <div class="md:col-span-2">
           <img src="images/logo.svg" alt="حاتي المجنون" class="h-9 w-auto mb-2.5">
-          <p class="text-stone-300 max-w-sm mb-3 text-xs leading-relaxed">
+          <p id="footer-description" class="text-stone-300 max-w-sm mb-3 text-xs leading-relaxed">
             مطعم حاتي المجنون بالعبور الجديدة: مشويات شرقية، كباب، كفتة بلدي، ريش وفراخ مشوية على الفحم، وصواني العزومات العائلية.
           </p>
           <div class="flex items-center gap-2.5">
@@ -606,7 +606,7 @@
             <a href="tel:01093078227" id="footer-phone-btn" class="w-8 h-8 rounded-lg bg-stone-900 hover:bg-amber-500 hover:text-stone-950 flex items-center justify-center transition" title="اتصال">
               <i data-lucide="phone" class="w-4 h-4"></i>
             </a>
-            <a href="https://maps.google.com/?q=حاتي+المجنون+العبور+الجديدة" target="_blank" class="w-8 h-8 rounded-lg bg-stone-900 hover:bg-red-600 hover:text-white flex items-center justify-center transition" title="خريطة الموقع">
+            <a href="https://maps.google.com/?q=حاتي+المجنون+العبور+الجديدة" id="footer-maps-link" target="_blank" class="w-8 h-8 rounded-lg bg-stone-900 hover:bg-red-600 hover:text-white flex items-center justify-center transition" title="خريطة الموقع">
               <i data-lucide="map-pin" class="w-4 h-4"></i>
             </a>
           </div>
@@ -623,7 +623,7 @@
 
         <div>
           <h4 class="text-xs font-bold text-white mb-2">خدمة التوصيل السريع</h4>
-          <p class="text-stone-300 text-xs mb-2 leading-relaxed">
+          <p id="footer-delivery-note" class="text-stone-300 text-xs mb-2 leading-relaxed">
             توصيل ساخن لجميع مناطق العبور الجديدة بحافظات حرارية مخصصة لحفظ درجة حرارة وجودة المشويات.
           </p>
           <span class="text-emerald-400 font-bold text-xs flex items-center gap-1">
