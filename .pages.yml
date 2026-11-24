@@ -10,11 +10,11 @@ content:
     label: "بيانات المطعم والاتصال والتوصيل"
     type: file
     path: data/business.json
+    format: json
     fields:
       - name: name
         label: "اسم المطعم"
         type: string
-        required: true
       - name: branch
         label: "الفرع"
         type: string
@@ -27,14 +27,12 @@ content:
       - name: address
         label: "العنوان بالكامل"
         type: string
-        required: true
       - name: locationLandmark
         label: "أقرب علامة مميزة"
         type: string
       - name: phonePrimary
         label: "رقم الموبايل الأساسي"
         type: string
-        required: true
       - name: phoneSecondary
         label: "رقم إضافي 1"
         type: string
@@ -44,7 +42,6 @@ content:
       - name: whatsapp
         label: "رقم الواتساب للطلبات"
         type: string
-        required: true
       - name: workingHours
         label: "مواعيد العمل اليومية"
         type: string
@@ -65,54 +62,42 @@ content:
     label: "قائمة المأكولات والمشويات"
     type: file
     path: data/products.json
-    list:
-      summary: "{name} ({price} ج.م)"
+    format: json
+    list: true
     fields:
       - name: id
-        label: "كود الصنف (فريد، مثلاً: prod-014)"
+        label: "كود الصنف"
         type: string
-        required: true
       - name: name
-        label: "اسم الطبق أو الصنف"
+        label: "اسم الطبق أو الوجبة"
         type: string
-        required: true
       - name: category
         label: "القسم"
         type: select
         options:
           values:
-            - name: family_feasts
-              label: "صواني العزومات واللمة"
-            - name: grills_kilo
-              label: "مشويات بلدي بالكيلو"
-            - name: chicken_meals
-              label: "فراخ وشيش على الفحم"
-            - name: single_meals
-              label: "وجبات فردية وسريعة"
-            - name: sides_casseroles
-              label: "طواجن ومقبلات وسلطات"
+            - family_feasts
+            - grills_kilo
+            - chicken_meals
+            - single_meals
+            - sides_casseroles
       - name: price
         label: "السعر الأصلي (ج.م)"
         type: number
-        required: true
       - name: discountPrice
-        label: "سعر الخصم / العرض (اختياري)"
+        label: "سعر الخصم / العرض"
         type: number
       - name: unit
-        label: "الوحدة أو الحجم (مثال: صينية 4 أفراد / 1 كجم / وجبة)"
+        label: "الوحدة أو الحجم"
         type: string
       - name: weightInfo
-        label: "تفاصيل الوزن الدقيق والقطع"
+        label: "تفاصيل الوزن الدقيق"
         type: string
       - name: description
-        label: "وصف مفصل للطبق والبهارات"
+        label: "وصف الصنف"
         type: text
-      - name: ingredients
-        label: "المكونات الأساسية"
-        type: string
-        list: true
       - name: image
-        label: "مسار صورة الصنف"
+        label: "مسار الصورة"
         type: string
       - name: badge
         label: "شارة تسويقية (مثل: الأكثر مبيعاً 🔥)"
@@ -121,13 +106,17 @@ content:
         label: "متوفر للطلب الآن؟"
         type: boolean
         default: true
+      - name: isFeatured
+        label: "مميز في الصفحة الرئيسية؟"
+        type: boolean
+        default: false
 
   - name: offers
     label: "العروض الأسبوعية والخصومات"
     type: file
     path: data/offers.json
-    list:
-      summary: "{title}"
+    format: json
+    list: true
     fields:
       - name: id
         label: "معرف العرض"
@@ -145,10 +134,10 @@ content:
         label: "السعر المخفض"
         type: number
       - name: description
-        label: "تفاصيل العرض والمحتويات"
+        label: "تفاصيل العرض"
         type: text
       - name: period
-        label: "فترة سريان العرض"
+        label: "فترة العرض"
         type: string
       - name: image
         label: "صورة العرض"
@@ -161,8 +150,8 @@ content:
     label: "آراء وتقييمات العملاء"
     type: file
     path: data/reviews.json
-    list:
-      summary: "{author} ({rating} نجوم)"
+    format: json
+    list: true
     fields:
       - name: id
         label: "رقم المراجعة"
@@ -177,10 +166,10 @@ content:
         label: "تاريخ المراجعة"
         type: string
       - name: orderType
-        label: "نوع الطلب (توصيل / سفري / صالة)"
+        label: "نوع الطلب"
         type: string
       - name: comment
-        label: "تعليق وملاحظة العميل"
+        label: "تعليق العميل"
         type: text
       - name: responseFromOwner
         label: "رد إدارة المطعم"
