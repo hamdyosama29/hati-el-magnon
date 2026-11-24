@@ -1,9 +1,9 @@
 # Pages CMS Configuration (https://pagescms.org)
-# حاتي المجنون (العبور الجديدة) - نظام إدارة المحتوى الرقمي المباشر
+# حاتي المجنون (العبور الجديدة) - نظام إدارة المحتوى الرقمي
 
 media:
   input: images
-  output: /images
+  output: images
 
 content:
   - name: business
@@ -60,30 +60,13 @@ content:
       - name: priceRange
         label: "متوسط السعر للشخص"
         type: string
-      - name: deliveryService
-        label: "إعدادات خدمة التوصيل"
-        type: object
-        fields:
-          - name: available
-            label: "خدمة التوصيل مفعلة؟"
-            type: boolean
-          - name: speed
-            label: "وقت التوصيل التقديري"
-            type: string
-          - name: hotBagGuarantee
-            label: "ضمان الحافظات الحرارية؟"
-            type: boolean
-          - name: coverageAreas
-            label: "أحياء ومناطق التوصيل في العبور"
-            type: list
-            field:
-              type: string
 
   - name: products
-    label: "قائمة المأكولات والمشويات (إضافة وحذف وتعديل)"
+    label: "قائمة المأكولات والمشويات"
     type: file
     path: data/products.json
-    list: true
+    list:
+      summary: "{name} ({price} ج.م)"
     fields:
       - name: id
         label: "كود الصنف (فريد، مثلاً: prod-014)"
@@ -97,22 +80,23 @@ content:
         label: "القسم"
         type: select
         options:
-          - label: "صواني العزومات واللمة"
-            value: "family_feasts"
-          - label: "مشويات بلدي بالكيلو"
-            value: "grills_kilo"
-          - label: "فراخ وشيش على الفحم"
-            value: "chicken_meals"
-          - label: "وجبات فردية وسريعة"
-            value: "single_meals"
-          - label: "طواجن ومقبلات وسلطات"
-            value: "sides_casseroles"
+          values:
+            - name: family_feasts
+              label: "صواني العزومات واللمة"
+            - name: grills_kilo
+              label: "مشويات بلدي بالكيلو"
+            - name: chicken_meals
+              label: "فراخ وشيش على الفحم"
+            - name: single_meals
+              label: "وجبات فردية وسريعة"
+            - name: sides_casseroles
+              label: "طواجن ومقبلات وسلطات"
       - name: price
-        label: "السعر الأصلي (بالجنيه المصري EGP)"
+        label: "السعر الأصلي (ج.م)"
         type: number
         required: true
       - name: discountPrice
-        label: "سعر العرض / الخصم (اختياري)"
+        label: "سعر الخصم / العرض (اختياري)"
         type: number
       - name: unit
         label: "الوحدة أو الحجم (مثال: صينية 4 أفراد / 1 كجم / وجبة)"
@@ -125,35 +109,25 @@ content:
         type: text
       - name: ingredients
         label: "المكونات الأساسية"
-        type: list
-        field:
-          type: string
+        type: string
+        list: true
       - name: image
-        label: "صورة الصنف"
-        type: image
+        label: "مسار صورة الصنف"
+        type: string
       - name: badge
-        label: "شارة تسويقية (مثل: الأكثر مبيعاً 🔥 / عرض خاص)"
+        label: "شارة تسويقية (مثل: الأكثر مبيعاً 🔥)"
         type: string
       - name: isAvailable
         label: "متوفر للطلب الآن؟"
         type: boolean
         default: true
-      - name: isFeatured
-        label: "عرض في قسم الأطباق المميزة بالرئيسية؟"
-        type: boolean
-        default: false
-      - name: preparationTime
-        label: "وقت التحضير والشوي التقديري"
-        type: string
-      - name: servings
-        label: "عدد الأفراد المقترح"
-        type: string
 
   - name: offers
     label: "العروض الأسبوعية والخصومات"
     type: file
     path: data/offers.json
-    list: true
+    list:
+      summary: "{title}"
     fields:
       - name: id
         label: "معرف العرض"
@@ -178,16 +152,17 @@ content:
         type: string
       - name: image
         label: "صورة العرض"
-        type: image
+        type: string
       - name: highlight
         label: "أبرز ميزة"
         type: string
 
   - name: reviews
-    label: "آراء وتقييمات العملاء وردود الإدارة"
+    label: "آراء وتقييمات العملاء"
     type: file
     path: data/reviews.json
-    list: true
+    list:
+      summary: "{author} ({rating} نجوم)"
     fields:
       - name: id
         label: "رقم المراجعة"
@@ -204,12 +179,9 @@ content:
       - name: orderType
         label: "نوع الطلب (توصيل / سفري / صالة)"
         type: string
-      - name: spendPerPerson
-        label: "متوسط الإنفاق"
-        type: string
       - name: comment
         label: "تعليق وملاحظة العميل"
         type: text
       - name: responseFromOwner
-        label: "رد إدارة المطعم والحل المتبع"
+        label: "رد إدارة المطعم"
         type: text
