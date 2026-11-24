@@ -11,7 +11,7 @@ window.INITIAL_BUSINESS = {
   "phonePrimary": "01093078227",
   "phoneSecondary": "01002563722",
   "phoneThird": "01155566732",
-  "whatsapp": "201093078227",
+  "whatsapp": "201128686373",
   "workingHours": "يومياً من 12:00 ظهراً حتى 2:00 بعد منتصف الليل",
   "googleMapsUrl": "https://maps.google.com/?q=حاتي+المجنون+العبور+الجديدة",
   "googleRating": 3.8,

@@ -75,6 +75,15 @@ async function loadLiveHttpData() {
   }
 }
 
+function getSanitizedWhatsApp(raw) {
+  if (!raw) return '201093078227';
+  let clean = String(raw).replace(/\D/g, '');
+  if (clean.startsWith('01') && clean.length === 11) {
+    clean = '2' + clean;
+  }
+  return clean || '201093078227';
+}
+
 // Render Business Information & Badges
 function renderHeroAndBusinessInfo() {
   if (!siteData.business) return;
@@ -93,6 +102,58 @@ function renderHeroAndBusinessInfo() {
 
   const addressEl = document.getElementById('biz-address');
   if (addressEl) addressEl.textContent = b.address;
+
+  // Primary Phone updates everywhere dynamically
+  if (b.phonePrimary) {
+    const p = b.phonePrimary;
+    const headerBtn = document.getElementById('header-phone-btn');
+    if (headerBtn) headerBtn.href = `tel:${p}`;
+    const headerPhoneText = document.getElementById('header-phone-text');
+    if (headerPhoneText) headerPhoneText.textContent = p;
+
+    const locationBtn = document.getElementById('location-phone-btn');
+    if (locationBtn) locationBtn.href = `tel:${p}`;
+    const locationPhoneText = document.getElementById('location-phone-text');
+    if (locationPhoneText) locationPhoneText.textContent = p;
+
+    const footerPhoneBtn = document.getElementById('footer-phone-btn');
+    if (footerPhoneBtn) footerPhoneBtn.href = `tel:${p}`;
+    const footerPhone1 = document.getElementById('footer-phone-primary');
+    if (footerPhone1) footerPhone1.href = `tel:${p}`;
+    const footerPhone1Text = document.getElementById('footer-phone-primary-text');
+    if (footerPhone1Text) footerPhone1Text.textContent = p;
+
+    const mobileCall = document.getElementById('mobile-nav-call');
+    if (mobileCall) mobileCall.href = `tel:${p}`;
+  }
+
+  // Secondary Phone
+  if (b.phoneSecondary) {
+    const p2 = b.phoneSecondary;
+    const footerPhone2 = document.getElementById('footer-phone-secondary');
+    if (footerPhone2) footerPhone2.href = `tel:${p2}`;
+    const footerPhone2Text = document.getElementById('footer-phone-secondary-text');
+    if (footerPhone2Text) footerPhone2Text.textContent = p2;
+  }
+
+  // Third Phone
+  if (b.phoneThird) {
+    const p3 = b.phoneThird;
+    const footerPhone3 = document.getElementById('footer-phone-third');
+    if (footerPhone3) footerPhone3.href = `tel:${p3}`;
+    const footerPhone3Text = document.getElementById('footer-phone-third-text');
+    if (footerPhone3Text) footerPhone3Text.textContent = p3;
+  }
+
+  // WhatsApp links update dynamically
+  if (b.whatsapp) {
+    const cleanWa = getSanitizedWhatsApp(b.whatsapp);
+    const heroWa = document.getElementById('hero-whatsapp-btn');
+    if (heroWa) heroWa.href = `https://wa.me/${cleanWa}`;
+
+    const footerWa = document.getElementById('footer-whatsapp-btn');
+    if (footerWa) footerWa.href = `https://wa.me/${cleanWa}`;
+  }
 
   // Delivery Areas
   const deliveryList = document.getElementById('delivery-zones-list');
@@ -394,7 +455,7 @@ function orderFeastViaWhatsApp() {
 
 📍 العنوان للتوصيل: (العبور الجديدة - عمارة ...)`;
 
-  const phone = siteData.business?.whatsapp || '201093078227';
+  const phone = getSanitizedWhatsApp(siteData.business?.whatsapp);
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
 }
 
@@ -542,7 +603,7 @@ ${itemsSummary}
 
 يرجى تأكيد الاستلام ووقت وصول الدليفري السخن. شكراً لكم!`;
 
-  const phone = siteData.business?.whatsapp || '201093078227';
+  const phone = getSanitizedWhatsApp(siteData.business?.whatsapp);
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
@@ -553,7 +614,7 @@ function orderOfferDirectly(offerId) {
   const text = `السلام عليكم حاتي المجنون،
 أود طلب "${offer.title}" بسعر العرض (${offer.salePrice || offer.originalPrice} ج.م) مع التوصيل بالعبور الجديدة.`;
 
-  const phone = siteData.business?.whatsapp || '201093078227';
+  const phone = getSanitizedWhatsApp(siteData.business?.whatsapp);
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
 }
 
