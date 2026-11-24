@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap');
+
+:root {
+  --font-primary: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+  --bg-main: #0e0e11;
+  --bg-surface: #17171c;
+  --bg-card: #1f1f26;
+  --bg-card-hover: #262630;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(245, 158, 11, 0.35);
+  --color-gold: #f59e0b;
+  --color-gold-light: #fbbf24;
+  --color-flame: #dc2626;
+  --color-flame-light: #ef4444;
+  --color-emerald: #10b981;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: #f3f4f6;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-bottom: 72px; /* space for mobile bottom bar */
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #0e0e11;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b2b36;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glass Header */
+.glass-header {
+  background: rgba(14, 14, 17, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Luxury Cards */
+.card-luxury {
+  background: linear-gradient(160deg, #1d1d24 0%, #15151a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-luxury:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(245, 158, 11, 0.12);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(220, 38, 38, 0.55);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #0c0c0e;
+  font-weight: 900;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+}
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f3f4f6;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Badges */
+.badge-gold {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  color: #0a0a0c;
+  font-weight: 900;
+}
+
+.badge-flame {
+  background: linear-gradient(90deg, #dc2626, #991b1b);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+/* Category Tabs */
+.category-pill {
+  transition: all 0.2s ease;
+  background: #18181f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d1d5db;
+}
+.category-pill:hover {
+  background: #23232c;
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #ffffff;
+}
+.category-pill.active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #0c0c0e !important;
+  font-weight: 900 !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+/* Calculator Meat Cards */
+.meat-card {
+  transition: all 0.2s ease;
+  background: #191920;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+.meat-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: #22222b;
+}
+.meat-card.selected {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: #f59e0b;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.2);
+}
+
+/* Segmented Salt Buttons */
+.salt-btn {
+  transition: all 0.2s ease;
+  background: #18181f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #9ca3af;
+  cursor: pointer;
+}
+.salt-btn.active {
+  background: #262633;
+  border-color: #f59e0b;
+  color: #f59e0b;
+  font-weight: 900;
+}
+
+/* Guests button */
+.guest-btn {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.guest-btn.active {
+  background: #f59e0b !important;
+  color: #0c0c0e !important;
+  font-weight: 900 !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.4);
+}
+
+/* Slide-over Cart Drawer */
+.cart-drawer {
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cart-drawer.closed {
+  transform: translateX(-100%);
+}
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+/* Mobile Bottom Navigation Bar */
+.mobile-bottom-nav {
+  background: rgba(18, 18, 23, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #9ca3af;
+  padding: 6px 0;
+  transition: all 0.15s ease;
+}
+.mobile-nav-item:active, .mobile-nav-item.active {
+  color: #f59e0b;
+}
+
+/* Toast */
+.toast-msg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}

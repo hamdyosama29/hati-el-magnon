@@ -1,0 +1,43 @@
+backend:
+  name: github
+  repo: your-username/hati-el-magnon # المستودع الخاص بك على GitHub
+  branch: main
+  site_domain: hati-el-magnon.vercel.app
+
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "business"
+    label: "معلومات المحل والتوصيل"
+    files:
+      - file: "data/business.json"
+        label: "بيانات المطعم"
+        name: "business_info"
+        fields:
+          - { label: "اسم المطعم", name: "name", widget: "string" }
+          - { label: "الفرع", name: "branch", widget: "string" }
+          - { label: "الشعار", name: "slogan", widget: "string" }
+          - { label: "العنوان", name: "address", widget: "string" }
+          - { label: "هاتف أساسي", name: "phonePrimary", widget: "string" }
+          - { label: "واتساب", name: "whatsapp", widget: "string" }
+          - { label: "ساعات العمل", name: "workingHours", widget: "string" }
+
+  - name: "products"
+    label: "قائمة المشويات والوجبات"
+    files:
+      - file: "data/products.json"
+        label: "الأصناف والأسعار"
+        name: "products_list"
+        fields:
+          - label: "قائمة المنتجات"
+            name: "products"
+            widget: "list"
+            fields:
+              - { label: "معرف الصنف", name: "id", widget: "string" }
+              - { label: "الاسم", name: "name", widget: "string" }
+              - { label: "السعر", name: "price", widget: "number" }
+              - { label: "سعر الخصم", name: "discountPrice", widget: "number", required: false }
+              - { label: "الوصف", name: "description", widget: "text" }
+              - { label: "الصورة", name: "image", widget: "image" }
+              - { label: "متوفر؟", name: "isAvailable", widget: "boolean", default: true }

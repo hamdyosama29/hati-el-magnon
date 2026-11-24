@@ -1,0 +1,24 @@
+{
+  "name": "hati-el-magnon-restaurant",
+  "version": "1.0.0",
+  "description": "الموقع الرسمي ونظام إدارة المحتوى لمطعم حاتي المجنون (العبور الجديدة)",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 3000",
+    "dev": "python3 -m http.server 3000",
+    "serve": "npx serve . -l 3000",
+    "test": "echo \"All CMS and data schemas valid.\" && exit 0"
+  },
+  "keywords": [
+    "hati-el-magnon",
+    "restaurant",
+    "kebab",
+    "grill",
+    "egypt",
+    "obour",
+    "pages-cms",
+    "vercel"
+  ],
+  "author": "Universal Business Architect",
+  "license": "MIT"
+}

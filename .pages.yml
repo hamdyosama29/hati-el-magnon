@@ -1,0 +1,215 @@
+# Pages CMS Configuration (https://pagescms.org)
+# حاتي المجنون (العبور الجديدة) - نظام إدارة المحتوى الرقمي المباشر
+
+media:
+  input: images
+  output: /images
+
+content:
+  - name: business
+    label: "بيانات المطعم والاتصال والتوصيل"
+    type: file
+    path: data/business.json
+    fields:
+      - name: name
+        label: "اسم المطعم"
+        type: string
+        required: true
+      - name: branch
+        label: "الفرع"
+        type: string
+      - name: slogan
+        label: "الشعار التسويقي"
+        type: string
+      - name: description
+        label: "وصف المطعم"
+        type: text
+      - name: address
+        label: "العنوان بالكامل"
+        type: string
+        required: true
+      - name: locationLandmark
+        label: "أقرب علامة مميزة"
+        type: string
+      - name: phonePrimary
+        label: "رقم الموبايل الأساسي"
+        type: string
+        required: true
+      - name: phoneSecondary
+        label: "رقم إضافي 1"
+        type: string
+      - name: phoneThird
+        label: "رقم إضافي 2"
+        type: string
+      - name: whatsapp
+        label: "رقم الواتساب للطلبات"
+        type: string
+        required: true
+      - name: workingHours
+        label: "مواعيد العمل اليومية"
+        type: string
+      - name: googleMapsUrl
+        label: "رابط خرائط جوجل"
+        type: string
+      - name: googleRating
+        label: "التقييم الحالي في جوجل"
+        type: number
+      - name: googleReviewCount
+        label: "إجمالي عدد التقييمات"
+        type: number
+      - name: priceRange
+        label: "متوسط السعر للشخص"
+        type: string
+      - name: deliveryService
+        label: "إعدادات خدمة التوصيل"
+        type: object
+        fields:
+          - name: available
+            label: "خدمة التوصيل مفعلة؟"
+            type: boolean
+          - name: speed
+            label: "وقت التوصيل التقديري"
+            type: string
+          - name: hotBagGuarantee
+            label: "ضمان الحافظات الحرارية؟"
+            type: boolean
+          - name: coverageAreas
+            label: "أحياء ومناطق التوصيل في العبور"
+            type: list
+            field:
+              type: string
+
+  - name: products
+    label: "قائمة المأكولات والمشويات (إضافة وحذف وتعديل)"
+    type: file
+    path: data/products.json
+    list: true
+    fields:
+      - name: id
+        label: "كود الصنف (فريد، مثلاً: prod-014)"
+        type: string
+        required: true
+      - name: name
+        label: "اسم الطبق أو الصنف"
+        type: string
+        required: true
+      - name: category
+        label: "القسم"
+        type: select
+        options:
+          - label: "صواني العزومات واللمة"
+            value: "family_feasts"
+          - label: "مشويات بلدي بالكيلو"
+            value: "grills_kilo"
+          - label: "فراخ وشيش على الفحم"
+            value: "chicken_meals"
+          - label: "وجبات فردية وسريعة"
+            value: "single_meals"
+          - label: "طواجن ومقبلات وسلطات"
+            value: "sides_casseroles"
+      - name: price
+        label: "السعر الأصلي (بالجنيه المصري EGP)"
+        type: number
+        required: true
+      - name: discountPrice
+        label: "سعر العرض / الخصم (اختياري)"
+        type: number
+      - name: unit
+        label: "الوحدة أو الحجم (مثال: صينية 4 أفراد / 1 كجم / وجبة)"
+        type: string
+      - name: weightInfo
+        label: "تفاصيل الوزن الدقيق والقطع"
+        type: string
+      - name: description
+        label: "وصف مفصل للطبق والبهارات"
+        type: text
+      - name: ingredients
+        label: "المكونات الأساسية"
+        type: list
+        field:
+          type: string
+      - name: image
+        label: "صورة الصنف"
+        type: image
+      - name: badge
+        label: "شارة تسويقية (مثل: الأكثر مبيعاً 🔥 / عرض خاص)"
+        type: string
+      - name: isAvailable
+        label: "متوفر للطلب الآن؟"
+        type: boolean
+        default: true
+      - name: isFeatured
+        label: "عرض في قسم الأطباق المميزة بالرئيسية؟"
+        type: boolean
+        default: false
+      - name: preparationTime
+        label: "وقت التحضير والشوي التقديري"
+        type: string
+      - name: servings
+        label: "عدد الأفراد المقترح"
+        type: string
+
+  - name: offers
+    label: "العروض الأسبوعية والخصومات"
+    type: file
+    path: data/offers.json
+    list: true
+    fields:
+      - name: id
+        label: "معرف العرض"
+        type: string
+      - name: title
+        label: "عنوان العرض"
+        type: string
+      - name: badge
+        label: "شارة العرض"
+        type: string
+      - name: originalPrice
+        label: "السعر قبل الخصم"
+        type: number
+      - name: salePrice
+        label: "السعر المخفض"
+        type: number
+      - name: description
+        label: "تفاصيل العرض والمحتويات"
+        type: text
+      - name: period
+        label: "فترة سريان العرض"
+        type: string
+      - name: image
+        label: "صورة العرض"
+        type: image
+      - name: highlight
+        label: "أبرز ميزة"
+        type: string
+
+  - name: reviews
+    label: "آراء وتقييمات العملاء وردود الإدارة"
+    type: file
+    path: data/reviews.json
+    list: true
+    fields:
+      - name: id
+        label: "رقم المراجعة"
+        type: string
+      - name: author
+        label: "اسم العميل"
+        type: string
+      - name: rating
+        label: "التقييم من 5 نجوم"
+        type: number
+      - name: date
+        label: "تاريخ المراجعة"
+        type: string
+      - name: orderType
+        label: "نوع الطلب (توصيل / سفري / صالة)"
+        type: string
+      - name: spendPerPerson
+        label: "متوسط الإنفاق"
+        type: string
+      - name: comment
+        label: "تعليق وملاحظة العميل"
+        type: text
+      - name: responseFromOwner
+        label: "رد إدارة المطعم والحل المتبع"
+        type: text
