@@ -43,13 +43,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Setup interactions and render all sections
   setupEventListeners();
-  renderHeroAndBusinessInfo();
-  renderOffers();
-  renderCategories();
-  renderProducts();
-  renderReviews();
-  updateFeastCalculator();
-  updateCartUI();
+  try { renderHeroAndBusinessInfo(); } catch (e) { console.error('Hero error:', e); }
+  try { renderOffers(); } catch (e) { console.error('Offers error:', e); }
+  try { renderCategories(); } catch (e) { console.error('Categories error:', e); }
+  try { renderProducts(); } catch (e) { console.error('Products error:', e); }
+  try { renderReviews(); } catch (e) { console.error('Reviews error:', e); }
+  try { updateFeastCalculator(); } catch (e) { console.error('Feast error:', e); }
+  try { updateCartUI(); } catch (e) { console.error('Cart error:', e); }
 });
 
 // Load live data if running on a web server (http / https)
@@ -97,7 +97,13 @@ function renderHeroAndBusinessInfo() {
   // Delivery Areas
   const deliveryList = document.getElementById('delivery-zones-list');
   if (deliveryList && b.deliveryService && b.deliveryService.coverageAreas) {
-    deliveryList.innerHTML = b.deliveryService.coverageAreas.map(zone => 
+    let zones = [];
+    if (Array.isArray(b.deliveryService.coverageAreas)) {
+      zones = b.deliveryService.coverageAreas;
+    } else if (typeof b.deliveryService.coverageAreas === 'string') {
+      zones = b.deliveryService.coverageAreas.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    deliveryList.innerHTML = zones.map(zone => 
       `<span class="inline-flex items-center bg-stone-900 border border-stone-800 px-3 py-1.5 rounded-full text-xs text-amber-300 font-semibold ml-2 mb-2">
         <i data-lucide="map-pin" class="w-3.5 h-3.5 ml-1 text-red-500"></i> ${zone}
       </span>`
